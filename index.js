@@ -1,52 +1,16 @@
-import { ApolloServer, gql } from "apollo-server";
-import sessions from "./data/sessions.json" assert { type: "json" };
+import { ApolloServer } from "apollo-server";
+import typeDefs from "./schema.js";
+import resolvers from "./resolvers.js";
 import { SessionsAPI } from "./datasources/sessions.js";
-
-const typeDefs = gql`
-  type Query {
-    sessions(
-      id: ID!
-      title: String!
-      description: String
-      startsAt: String
-      endsAt: String
-      room: String
-      day: String
-      format: String
-      track: String
-      level: String
-    ): [Session]
-    sessionById(id: ID): Session
-  }
-  type Session {
-    id: ID!
-    title: String!
-    description: String
-    startsAt: String
-    endsAt: String
-    room: String
-    day: String
-    format: String
-    track: String
-    level: String
-  }
-`;
+import { SpeakersAPI } from "./datasources/speakers.js";
 
 const dataSources = () => ({
   sessionsAPI: new SessionsAPI(),
+  speakersAPI: new SpeakersAPI(),
 });
-
-const resolvers = {
-  Query: {
-    sessions: (parent, args, { dataSources }, info) =>
-      dataSources.sessionsAPI.getSessions(),
-    sessionById: (parent, { id }, { dataSources }, info) =>
-      dataSources.sessionsAPI.getSessionById(id),
-  },
-};
 
 const server = new ApolloServer({ typeDefs, resolvers, dataSources });
 
-server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
+server.listen({ port: 4000 }).then(({ url }) => {
   console.log(`🚀 graphlQL running at ${url}`);
 });

@@ -1,6 +1,6 @@
 import { DataSource } from "apollo-datasource";
-import sessions from "./data/sessions.json" assert { type: "json" };
-import { find } from "lodash-es";
+import sessions from "../data/sessions.json" assert { type: "json" };
+import { find, filter } from "lodash-es";
 
 export class SessionsAPI extends DataSource {
   constructor() {
@@ -9,11 +9,19 @@ export class SessionsAPI extends DataSource {
 
   initialize(config) {}
 
-  getSessions() {
-    return sessions;
+  getSessions(args) {
+    return filter(sessions, args);
   }
 
   getSessionById(id) {
+    return find(sessions, { id: parseInt(id) });
+  }
+
+  getSpeakers(args) {
+    return filter(sessions, args);
+  }
+
+  getSpeakersById(id) {
     return find(sessions, { id: parseInt(id) });
   }
 }
