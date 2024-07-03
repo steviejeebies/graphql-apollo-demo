@@ -10,7 +10,7 @@ export class SpeakersAPI extends RESTDataSource {
     return await this.get("/");
   }
 
-  async getSpeakerById(id) {
+  async getSpeakersById(id) {
     return await this.get(`/${id}`);
   }
 }

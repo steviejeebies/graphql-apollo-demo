@@ -1,19 +1,6 @@
 import { gql } from "apollo-server";
 
 export default gql`
-  type Session {
-    id: ID!
-    title: String!
-    description: String
-    startsAt: String
-    endsAt: String
-    room: String
-    day: String
-    format: String
-    track: String
-    level: String
-  }
-
   input SessionInput {
     id: ID
     title: String
@@ -27,11 +14,26 @@ export default gql`
     level: String
   }
 
+  type Session {
+    id: ID!
+    title: String!
+    description: String
+    startsAt: String
+    endsAt: String
+    room: String
+    day: String
+    format: String
+    track: String
+    level: String
+    speakers: [Speaker]
+  }
+
   type Speaker {
     id: ID!
     bio: String
     name: String
     sessions: [Session]
+    somethingElse: String
   }
 
   type Query {
