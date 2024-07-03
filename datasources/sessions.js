@@ -1,8 +1,8 @@
-const sessions = require("../data/sessions.json");
-const { DataSource } = require("apollo-datasource");
-const _ = require("lodash");
+import { DataSource } from "apollo-datasource";
+import sessions from "./data/sessions.json" assert { type: "json" };
+import { find } from "lodash-es";
 
-class SessionsAPI extends DataSource {
+export class SessionsAPI extends DataSource {
   constructor() {
     super();
   }
@@ -14,8 +14,6 @@ class SessionsAPI extends DataSource {
   }
 
   getSessionById(id) {
-    const sessions = _.filter(sessions, { id: parseInt(id) });
+    return find(sessions, { id: parseInt(id) });
   }
 }
-
-module.exports = SessionsAPI;
