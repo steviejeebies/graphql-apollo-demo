@@ -25,6 +25,7 @@ export default gql`
     format: String
     track: String
     level: String
+    favourite: Boolean
     speakers: [Speaker]
   }
 
@@ -41,5 +42,9 @@ export default gql`
     sessionById(id: ID): Session
     speakers: [Speaker]
     speakerById(id: ID): Speaker
+  }
+
+  type Mutation {
+    toggleFavouriteSession(id: ID): Session
   }
 `;

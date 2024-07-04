@@ -1,6 +1,6 @@
 import { ApolloServer } from "apollo-server";
 import typeDefs from "./schema.js";
-import resolvers from "./resolvers.js";
+import resolvers from "./resolvers/index.js";
 import { SessionsAPI } from "./datasources/sessions.js";
 import { SpeakersAPI } from "./datasources/speakers.js";
 
