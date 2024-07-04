@@ -11,6 +11,7 @@ export default gql`
     day: String
     format: String
     track: String
+    favourite: Boolean
     level: String
   }
 
@@ -38,7 +39,7 @@ export default gql`
   }
 
   type Query {
-    sessions(args: SessionInput): [Session]
+    sessions(input: SessionInput): [Session]
     sessionById(id: ID): Session
     speakers: [Speaker]
     speakerById(id: ID): Speaker

@@ -10,7 +10,10 @@ export class SessionsAPI extends DataSource {
   initialize(config) {}
 
   getSessions(args) {
-    return filter(sessions, args);
+    return filter(sessions, {
+      ...args.input,
+      ...(args.input.id && { id: parseInt(args.input.id) }),
+    });
   }
 
   getSessionById(id) {
@@ -23,5 +26,13 @@ export class SessionsAPI extends DataSource {
 
   getSpeakersById(id) {
     return find(sessions, { id: parseInt(id) });
+  }
+
+  toggleFavouriteSession(id) {
+    const session = this.getSessionById(id);
+
+    if (!session.favourite) session.favourite = true;
+    else session.favourite = false;
+    return session;
   }
 }
